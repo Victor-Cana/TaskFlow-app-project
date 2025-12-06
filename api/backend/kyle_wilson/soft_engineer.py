@@ -93,9 +93,9 @@ def create_resource():
                 data["dateDue"],
             ),
         )
-         db.get_db().commit()
-         cursor.close()
-          return jsonify({"message": "Resource created"}), 201
+        db.get_db().commit()
+        cursor.close()
+        return jsonify({"message": "Resource created"}), 201
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -126,10 +126,10 @@ def create_resource():
                 data["lastName"],
                 data["userID"],
             ),
-        )d
-         db.get_db().commit()
-         cursor.close()
-          return jsonify({"message": "user created"}), 201
+        )
+        db.get_db().commit()
+        cursor.close()
+        return jsonify({"message": "user created"}), 201
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
