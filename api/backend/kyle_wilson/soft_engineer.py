@@ -19,8 +19,6 @@ kyle_wilson = Blueprint("Software Engineer", __name__)
 def update_resources(link):
     try:
         data = request.get_json()
-
-
         cursor = db.get_db().cursor()
         
         # Check if resource exists
@@ -163,9 +161,9 @@ def create_user():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# update a name and type resource by the resourceID
+# update a resource by the resourceID
 @kyle_wilson.route('/resources/<int:resourceID>', methods=['PUT'])
-def update_resource_name(resourceID):
+def update_resource_by_id(resourceID):
     try:
         data = request.get_json()
         if not data:
@@ -179,22 +177,20 @@ def update_resource_name(resourceID):
         if not existing:
             return jsonify({"error": "resourceID not found"}), 404
 
-        # Build the update query dynamically
-        update_fields = []
-        values = []
-
-        for field in ["name", "type", "description", "link", "dateDue"]:
-            if field in data:
-                update_fields.append(f"{field} = %s")
-                values.append(data[field])
-
-        if not update_fields:
-            return jsonify({"error": "No valid fields provided for update"}), 400
-
-        values.append(resourceID)  # for WHERE clause
-
-        query = f"UPDATE Resources SET {', '.join(update_fields)} WHERE resourceID = %s"
-        cursor.execute(query, tuple(values))
+        # Update the resource fields
+        query = """
+            UPDATE Resources 
+            SET name = %s, type = %s, description = %s, link = %s, dateDue = %s 
+            WHERE resourceID = %s
+        """
+        cursor.execute(query, (
+            data["name"],
+            data["type"],
+            data["description"],
+            data["link"],
+            data["dateDue"],
+            resourceID
+        ))
         db.get_db().commit()
         cursor.close()
 
