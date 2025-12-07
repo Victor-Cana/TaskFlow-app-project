@@ -45,7 +45,7 @@ if st.session_state.reset_form:
     st.session_state.reset_form = False
 
 # API endpoint
-API_URL = "http://web-api:4000/users" '<-- Update this URL to the correct user creation endpoint'
+API_URL = "http://web-api:4000/software_engineer/users" '<-- Update this URL to the correct user creation endpoint'
 
 # Create a form for user details with dynamic key to force reset
 with st.form(f"create_user_form_{st.session_state.form_key_counter}"):

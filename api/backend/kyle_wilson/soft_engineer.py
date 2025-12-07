@@ -54,7 +54,7 @@ def delete_resource(resourceID):
         # check if resource exists
         cursor.execute("SELECT * FROM Resources where resourceID = %s", (resourceID,))
         if not cursor.fetchone():
-            return jsonify({"error": "link not found"}), 404
+            return jsonify({"error": "Resource not found"}), 404
 
         # delete the resource
         query = "DELETE FROM Resources WHERE resourceID = %s"
@@ -147,36 +147,40 @@ def create_user():
 def update_resource_name(resourceID):
     try:
         data = request.get_json()
+        if not data:
+            return jsonify({"error": "No data provided"}), 400
 
         cursor = db.get_db().cursor()
         
         # Check if resource exists
         cursor.execute("SELECT * FROM Resources WHERE resourceID = %s", (resourceID,))
-        if not cursor.fetchone():
+        existing = cursor.fetchone()
+        if not existing:
             return jsonify({"error": "resourceID not found"}), 404
-        
-        # Update the attributes for the given resourceID
-        query = """
-            UPDATE Resources 
-            SET name = %s, type = %s, description = %s, link = %s, dateDue = %s 
-            WHERE resourceID = %s
-        """
-        cursor.execute(query, (
-            data.get("name"),
-            data.get("type"),
-            data.get("description"),
-            data.get("link"),
-            data.get("dateDue"),
-            resourceID
-        ))
 
+        # Build the update query dynamically
+        update_fields = []
+        values = []
+
+        for field in ["name", "type", "description", "link", "dateDue"]:
+            if field in data:
+                update_fields.append(f"{field} = %s")
+                values.append(data[field])
+
+        if not update_fields:
+            return jsonify({"error": "No valid fields provided for update"}), 400
+
+        values.append(resourceID)  # for WHERE clause
+
+        query = f"UPDATE Resources SET {', '.join(update_fields)} WHERE resourceID = %s"
+        cursor.execute(query, tuple(values))
         db.get_db().commit()
         cursor.close()
 
         return jsonify({"message": "Resource updated successfully"}), 200
+
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
 
 
 
