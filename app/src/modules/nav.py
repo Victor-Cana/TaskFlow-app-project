@@ -14,21 +14,33 @@ def AboutPageNav():
     st.sidebar.page_link("pages/40_About.py", label="About", icon="🧠")
 
 
-#### ------------------------ Examples for Role of pol_strat_advisor ------------------------
+#### ------------------------ Links for Role of Software Engineer ------------------------
 def SoftwareEngineerHomeNav():
     st.sidebar.page_link(
-        "pages/00_Software_Engineer_Home.py", label="Software Engineer Home", icon="👤"
+        "pages/00_Software_Engineer_Home.py", label="Software Engineer Home", icon="🏠"
     )
 
 
-def WorldBankVizNav():
+def CreateResourceNav():
     st.sidebar.page_link(
-        "pages/01_World_Bank_Viz.py", label="World Bank Visualization", icon="🏦"
+        "pages/01_Create_Resource.py", label="Create Resource", icon="➕"
     )
 
+def UpdateResourceNav():
+    st.sidebar.page_link(
+        "pages/02_Update_Resource.py", label="Update Resource", icon="🔄"
+    )
 
-def MapDemoNav():
-    st.sidebar.page_link("pages/02_Map_Demo.py", label="Map Demonstration", icon="🗺️")
+def DeleteResourceNav():
+    st.sidebar.page_link(
+        "pages/03_Delete_Resource.py", label="Delete Resource", icon="❌"
+    )
+
+def CreateUserNav():
+    st.sidebar.page_link(
+        "pages/04_Create_User.py", label="Create Resource", icon="➕"
+    )
+
 
 
 ## ------------------------ Examples for Role of usaid_worker ------------------------
@@ -91,10 +103,12 @@ def SideBarLinks(show_home=False):
     if st.session_state["authenticated"]:
 
         # Show World Bank Link and Map Demo Link if the user is a political strategy advisor role.
-        if st.session_state["role"] == "pol_strat_advisor":
+        if st.session_state["role"] == "software_engineer":
             SoftwareEngineerHomeNav()
-            WorldBankVizNav()
-            MapDemoNav()
+            CreateResourceNav()
+            UpdateResourceNav()
+            DeleteResourceNav()
+            CreateUserNav()
 
         # If the user role is usaid worker, show the Api Testing page
         if st.session_state["role"] == "usaid_worker":
