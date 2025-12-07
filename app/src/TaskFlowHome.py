@@ -57,7 +57,7 @@ if st.button("Login as Kyle Wilson, a Software Engineer at TaskFlow",
     # finally, we ask streamlit to switch to another page, in this case, the 
     # landing page for this particular user type
     logger.info("Logging in as Software Engineer Persona")
-    st.switch_page('pages/00_Software_Engineer_Home.py')
+    st.switch_page('TaskFlowpages/00_Software_Engineer_Home.py')
 
 if st.button('Act as John Kraft, a CFO of a TaskFlow client', 
             type = 'primary', 
@@ -65,7 +65,7 @@ if st.button('Act as John Kraft, a CFO of a TaskFlow client',
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'client_cfo'
     st.session_state['first_name'] = 'John'
-    st.switch_page('pages/10_Client_CEO_Home.py')
+    st.switch_page('TaskFlowpages/10_Client_CEO_Home.py')
 
 if st.button('Act as Evan Park, a Student Group Project Manager', 
             type = 'primary', 
@@ -73,7 +73,7 @@ if st.button('Act as Evan Park, a Student Group Project Manager',
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'project_manager'
     st.session_state['first_name'] = 'Evan'
-    st.switch_page('pages/20_Project_Manager_Home.py')
+    st.switch_page('TaskFlowpages/20_Project_Manager_Home.py')
 
 if st.button('Act as Ryan Kim, a Student Team Member', 
             type = 'primary', 
@@ -81,5 +81,5 @@ if st.button('Act as Ryan Kim, a Student Team Member',
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'team_member'
     st.session_state['first_name'] = 'Ryan'
-    st.switch_page('pages/30_Team_Member_Home.py')
+    st.switch_page('TaskFlowpages/30_Team_Member_Home.py')
 
