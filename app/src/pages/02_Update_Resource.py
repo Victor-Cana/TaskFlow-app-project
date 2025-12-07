@@ -6,7 +6,7 @@ from modules.nav import SideBarLinks
 # Initialize sidebar
 SideBarLinks()
 
-st.title("Create a New Resource")
+st.title("Update a Resource")
 
 # Initialize session state for modal
 if "show_success_modal" not in st.session_state:
@@ -21,7 +21,7 @@ if "form_key_counter" not in st.session_state:
 # Define the success dialog function
 @st.dialog("Success")
 def show_success_dialog(resource_name):
-    st.markdown(f"### {resource_name} has been successfully added to the system!")
+    st.markdown(f"### {resource_name} has been successfully updated in the system!")
     
     # Create two buttons side by side
     col1, col2 = st.columns(2)
@@ -33,7 +33,7 @@ def show_success_dialog(resource_name):
             st.switch_page("pages/00_Software_Engineer_Home.py")
     
     with col2:
-        if st.button("Add Another Resource", use_container_width=True):
+        if st.button("Update Another Resource", use_container_width=True):
             st.session_state.show_success_modal = False
             st.session_state.success_resource_name = ""
             st.session_state.reset_form = True
@@ -48,8 +48,10 @@ if st.session_state.reset_form:
 API_URL = "http://web-api:4000/software_engineer/resources"
 
 # Create a form for NGO details with dynamic key to force reset
-with st.form(f"create_resource_form_{st.session_state.form_key_counter}"):
+with st.form(f"update_resource_form_{st.session_state.form_key_counter}"):
     st.subheader("Resource Information")
+
+    resourceID = st.number_input("Resource ID *", min_value=1, step=1)
 
     # Required fields marked with *
     name = st.text_input("Name *")
@@ -59,44 +61,47 @@ with st.form(f"create_resource_form_{st.session_state.form_key_counter}"):
     dateDue = st.date_input("Due Date", value=None)
 
     # Form submission button
-    submitted = st.form_submit_button("Create Resource")
+    submitted = st.form_submit_button("Update Resource")
 
     if submitted:
-        # Validate required fields
-        if not all([name, type, link]):
-            st.error("Please fill in all required fields marked with *")
-        else:
             # Prepare the data for API
-            resource_data = {
-                "name": name,
-                "type": type,
-                "description": description if description else None,
-                "link": link,
-                "dateDue": dateDue.isoformat() if dateDue else None,
-            }
+            resource_data = {}
+            if name:
+                resource_data["name"] = name
+            if type:
+                resource_data["type"] = type
+            if description:
+                resource_data["description"] = description
+            if link:
+                resource_data["link"] = link
+            if dateDue:
+                resource_data["dateDue"] = dateDue.isoformat()
 
-            try:
-                # Send POST request to API
-                response = requests.post(API_URL, json=resource_data)
+            if not resource_data:
+                st.error("Please provide at least one field to update")
+            else:
+                try:
+                    # Send POST request to API
+                    response = requests.put(f"{API_URL}/{resourceID}", json=resource_data)
 
-                if response.status_code == 201:
-                    # Store NGO name and show modal
-                    st.session_state.show_success_modal = True
-                    st.session_state.success_resource_name = name
-                    st.rerun()
-                else:
-                    st.error(
-                        f"Failed to add Resource: {response.json().get('error', 'Unknown error')}"
-                    )
+                    if response.status_code == 200:
+                        # Store NGO name and show modal
+                        st.session_state.show_success_modal = True
+                        st.session_state.success_resource_name = f"Resource #{resourceID}"
+                        st.rerun()
+                    else:
+                        st.error(
+                            f"Failed to update Resource: {response.json().get('error', 'Unknown error')}"
+                        )
 
-            except requests.exceptions.RequestException as e:
-                st.error(f"Error connecting to the API: {str(e)}")
-                st.info("Please ensure the API server is running")
+                except requests.exceptions.RequestException as e:
+                    st.error(f"Error connecting to the API: {str(e)}")
+                    st.info("Please ensure the API server is running")
 
 # Show success modal if NGO was added successfully
 if st.session_state.show_success_modal:
     show_success_dialog(st.session_state.success_resource_name)
 
 # Add a button to return to the NGO Directory
-if st.button("Return to Sotware Engineer Home", type="primary"):
+if st.button("Return to Software Engineer Home", type="primary"):
     st.switch_page("pages/00_Software_Engineer_Home.py")
