@@ -11,13 +11,13 @@ def HomeNav():
 
 
 def AboutPageNav():
-    st.sidebar.page_link("pages/30_About.py", label="About", icon="🧠")
+    st.sidebar.page_link("pages/40_About.py", label="About", icon="🧠")
 
 
 #### ------------------------ Examples for Role of pol_strat_advisor ------------------------
-def PolStratAdvHomeNav():
+def SoftwareEngineerHomeNav():
     st.sidebar.page_link(
-        "pages/00_Pol_Strat_Home.py", label="Political Strategist Home", icon="👤"
+        "pages/00_Software_Engineer_Home.py", label="Software Engineer Home", icon="👤"
     )
 
 
@@ -92,7 +92,7 @@ def SideBarLinks(show_home=False):
 
         # Show World Bank Link and Map Demo Link if the user is a political strategy advisor role.
         if st.session_state["role"] == "pol_strat_advisor":
-            PolStratAdvHomeNav()
+            SoftwareEngineerHomeNav()
             WorldBankVizNav()
             MapDemoNav()
 
@@ -109,7 +109,7 @@ def SideBarLinks(show_home=False):
         # If the user is an administrator, give them access to the administrator pages
         if st.session_state["role"] == "administrator":
             AdminPageNav()
-
+    
     # Always show the About page at the bottom of the list of links
     AboutPageNav()
 

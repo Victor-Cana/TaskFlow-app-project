@@ -44,6 +44,27 @@ def update_resources(link):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+#be able to view existing resources for delete function
+@kyle_wilson.route('/resources', methods=['GET'])
+def get_resources():
+    try:
+        cursor = db.get_db().cursor()
+        cursor.execute("SELECT resourceID, name, type, link FROM Resources")
+        rows = cursor.fetchall()
+        cursor.close()
+
+        resources = []
+        for row in rows:
+            resources.append({
+                "resourceID": row['resourceID'], 
+                "name": row['name'],
+                "type": row['type'],
+                "link": row['link']
+            })
+
+        return jsonify(resources), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 # have to be able to delete certain resources
 @kyle_wilson.route('/resources/<int:resourceID>', methods=['DELETE'])

@@ -103,5 +103,5 @@ if st.session_state.show_success_modal:
     show_success_dialog(st.session_state.success_user_name)
 
 # Add a button to return to the NGO Directory
-if st.button("Return to Sotware Engineer Home", type="primary"):
+if st.button("Return to Software Engineer Home", type="primary"):
     st.switch_page("pages/00_Software_Engineer_Home.py")

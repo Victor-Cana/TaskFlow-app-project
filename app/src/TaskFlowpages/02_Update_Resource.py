@@ -30,7 +30,7 @@ def show_success_dialog(resource_name):
         if st.button("Return to Software Engineer Home", use_container_width=True):
             st.session_state.show_success_modal = False
             st.session_state.success_resource_name = ""
-            st.switch_page("TaskFlowpages/00_Software_Engineer_Home.py")
+            st.switch_page("pages/00_Software_Engineer_Home.py")
     
     with col2:
         if st.button("Update Another Resource", use_container_width=True):
@@ -104,4 +104,4 @@ if st.session_state.show_success_modal:
 
 # Add a button to return to the NGO Directory
 if st.button("Return to Sotware Engineer Home", type="primary"):
-    st.switch_page("TaskFlowpages/00_Software_Engineer_Home.py")
+    st.switch_page("pages/00_Software_Engineer_Home.py")
