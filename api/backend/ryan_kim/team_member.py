@@ -8,7 +8,7 @@ ryan_kim = Blueprint("Team Member", __name__)
 
 # wants to see other people time worked
 @ryan_kim.route('/worksessions/<int:resourceID>', methods=['GET'])
-def see_time_worked(resourceID)
+def see_time_worked(resourceID):
     try:
         current_app.logger.info('Starting see_time_worked request')
         cursor = db.get_db().cursor()
