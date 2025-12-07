@@ -52,7 +52,7 @@ def delete_resource(resourceID):
         cursor = db.get_db().cursor()
 
         # check if resource exists
-        cursor.execute("SELECT * FROM Resources where resourceID = %s", (resourceID,))
+        cursor.execute("SELECT * FROM Resources WHERE resourceID = %s", (resourceID,))
         if not cursor.fetchone():
             return jsonify({"error": "link not found"}), 404
 
