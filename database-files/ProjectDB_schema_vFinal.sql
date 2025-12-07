@@ -18,12 +18,12 @@ DROP TABLE IF EXISTS Users;
 
 CREATE TABLE IF NOT EXISTS Users
 (
-   userID    INTEGER PRIMARY KEY,
-   email1    VARCHAR(50),
+   userID    INTEGER AUTO_INCREMENT PRIMARY KEY,
+   email1    VARCHAR(50) NOT NULL,
    email2    VARCHAR(50),
    email3    VARCHAR(50),
-   firstName VARCHAR(50),
-   lastName  VARCHAR(50),
+   firstName VARCHAR(50) NOT NULL,
+   lastName  VARCHAR(50) NOT NULL,
    managerID INTEGER,
    FOREIGN KEY (managerID) REFERENCES Users(userID)
        ON UPDATE CASCADE
@@ -81,11 +81,11 @@ CREATE TABLE IF NOT EXISTS Milestones(
 
 
 CREATE TABLE IF NOT EXISTS Resources(
- resourceID INTEGER PRIMARY KEY,
- name VARCHAR(50),
- type VARCHAR(50),
+ resourceID INTEGER AUTO_INCREMENT PRIMARY KEY,
+ name VARCHAR(50) NOT NULL,
+ type VARCHAR(50) NOT NULL,
  description VARCHAR(250),
- link VARCHAR(250),
+ link VARCHAR(250) NOT NULL,
  dateDue DATETIME
 );
 

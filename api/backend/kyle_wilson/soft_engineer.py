@@ -73,10 +73,14 @@ def create_resource():
         data = request.get_json()
 
         # check for required params
-        required_fields = ["name", "type", "description", "link", "dateDue"]
+        required_fields = ["name", "type", "link"]
         for field in required_fields:
             if field not in data:
                 return jsonify({"error": "No valid fields to update"}), 400
+        
+        #optional params
+        description = data.get("description") 
+        dateDue = data.get("dateDue")   
 
         cursor = db.get_db().cursor()
         query = """
@@ -88,9 +92,9 @@ def create_resource():
             (
                 data["name"],
                 data["type"],
-                data["description"],
+                description,
                 data["link"],
-                data["dateDue"],
+                dateDue
             ),
         )
         db.get_db().commit()
@@ -100,31 +104,36 @@ def create_resource():
         return jsonify({"error": str(e)}), 500
 
 # creating a new user
-@kyle_wilson.route('/resources', methods=['POST'])
-def create_resource():
+@kyle_wilson.route('/users', methods=['POST'])
+def create_user():
     try:
         data = request.get_json()
 
         # check for required params
-        required_fields = ["email1", "email2", "email3", "firstName", "lastName", "userID"]
+        required_fields = ["email1", "firstName", "lastName"]
         for field in required_fields:
-            if field not in data:
-                return jsonify({"error": "No valid fields to update"}), 400
+            if not data.get(field):
+                return jsonify({"error": f"Missing required field: {field}"}), 400
+            
+        #optional params
+        email2 = data.get("email2") or None
+        email3 = data.get("email3") or None
+        managerID = data.get("managerID") or None  
 
         cursor = db.get_db().cursor()
         query = """
-        INSERT INTO Users (email1, email2, email3, firstName, lastName, userID)
+        INSERT INTO Users (email1, email2, email3, firstName, lastName, managerID)
         VALUES (%s, %s, %s, %s, %s, %s)
         """
         cursor.execute(
             query,
             (
                 data["email1"],
-                data["email2"],
-                data["email3"],
+                email2,
+                email3,
                 data["firstName"],
                 data["lastName"],
-                data["userID"],
+                managerID,
             ),
         )
         db.get_db().commit()
@@ -135,7 +144,7 @@ def create_resource():
 
 # update a name and type resource by the resourceID
 @kyle_wilson.route('/resources/<int:resourceID>', methods=['PUT'])
-def update_resource_name(link):
+def update_resource_name(resourceID):
     try:
         data = request.get_json()
 
@@ -145,27 +154,22 @@ def update_resource_name(link):
         cursor.execute("SELECT * FROM Resources WHERE resourceID = %s", (resourceID,))
         if not cursor.fetchone():
             return jsonify({"error": "resourceID not found"}), 404
-
-        # Get the new resourecID from request body
-        if "resourceID" not in data:
-            return jsonify({"error": "No new link provided"}), 400
-
-        new_resourceID = data["resourceID"]
         
-        # Update the resourceID
+        # Update the attributes for the given resourceID
         query = """
             UPDATE Resources 
             SET name = %s, type = %s, description = %s, link = %s, dateDue = %s 
             WHERE resourceID = %s
         """
         cursor.execute(query, (
-            data["name"],
-            data["type"],
-            data["description"],
-            data["link"],
-            data["dateDue"],
+            data.get("name"),
+            data.get("type"),
+            data.get("description"),
+            data.get("link"),
+            data.get("dateDue"),
             resourceID
         ))
+
         db.get_db().commit()
         cursor.close()
 
