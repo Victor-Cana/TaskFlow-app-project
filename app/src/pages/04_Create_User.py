@@ -45,7 +45,7 @@ if st.session_state.reset_form:
     st.session_state.reset_form = False
 
 # API endpoint
-API_URL = "http://web-api:4000/software_engineer/users" '<-- Update this URL to the correct user creation endpoint'
+API_URL = "http://web-api:4000/software_engineer/users"
 
 # Create a form for user details with dynamic key to force reset
 with st.form(f"create_user_form_{st.session_state.form_key_counter}"):
@@ -57,7 +57,7 @@ with st.form(f"create_user_form_{st.session_state.form_key_counter}"):
     email3 = st.text_input("Email #3")
     firstName = st.text_input("First Name *")
     lastName = st.text_input("Last Name *")
-    managerID = st.number_input("Manager ID #", value=0, step=1)
+    managerID = st.number_input("Manager ID #", value=None, step=1)
 
     if managerID == 0:
         managerID = None
@@ -85,7 +85,7 @@ with st.form(f"create_user_form_{st.session_state.form_key_counter}"):
                 response = requests.post(API_URL, json=user_data)
 
                 if response.status_code == 201:
-                    # Store NGO name and show modal
+                    # Store user name and show modal
                     st.session_state.show_success_modal = True
                     st.session_state.success_user_name = firstName + " " + lastName
                     st.rerun()
@@ -98,10 +98,10 @@ with st.form(f"create_user_form_{st.session_state.form_key_counter}"):
                 st.error(f"Error connecting to the API: {str(e)}")
                 st.info("Please ensure the API server is running")
 
-# Show success modal if NGO was added successfully
+# Show success modal if user was added successfully
 if st.session_state.show_success_modal:
     show_success_dialog(st.session_state.success_user_name)
 
-# Add a button to return to the NGO Directory
+# Add a button to return to the Software Engineer Home 
 if st.button("Return to Software Engineer Home", type="primary"):
     st.switch_page("pages/00_Software_Engineer_Home.py")

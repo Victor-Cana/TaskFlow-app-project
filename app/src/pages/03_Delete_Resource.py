@@ -29,7 +29,7 @@ def show_success_dialog(resource_name):
 # API endpoint
 API_URL = "http://web-api:4000/software_engineer/resources"
 
-# Fetch resources from backend
+# Retreive resources from backend
 try:
     response = requests.get(API_URL)
     response.raise_for_status()

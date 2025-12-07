@@ -12,9 +12,9 @@ SideBarLinks()
 st.title(f"Welcome Software Engineer, {st.session_state['first_name']}.")
 st.write('')
 st.write('')
-st.write('### What would you like to do today?')
+st.write('### What features would you like to test today?')
 
-
+#create buttons for each of the features available to this user persona
 if st.button('Create a New Resource', 
              type='primary',
              use_container_width=True):

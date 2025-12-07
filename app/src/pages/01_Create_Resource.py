@@ -47,13 +47,13 @@ if st.session_state.reset_form:
 # API endpoint
 API_URL = "http://web-api:4000/software_engineer/resources"
 
-# Create a form for NGO details with dynamic key to force reset
+# Create a form for resource details with dynamic key to force reset
 with st.form(f"create_resource_form_{st.session_state.form_key_counter}"):
     st.subheader("Resource Information")
 
     # Required fields marked with *
     name = st.text_input("Name *")
-    type = st.text_input("Type (.docx, .pdf, .xlxs, etc.)*")
+    type = st.text_input("Type * (.docx, .pdf, .xlxs, etc.)")
     description = st.text_input("Description")
     link = st.text_input("Resource Link *")
     dateDue = st.date_input("Due Date", value=None)
@@ -80,7 +80,7 @@ with st.form(f"create_resource_form_{st.session_state.form_key_counter}"):
                 response = requests.post(API_URL, json=resource_data)
 
                 if response.status_code == 201:
-                    # Store NGO name and show modal
+                    # Store resource name and show modal
                     st.session_state.show_success_modal = True
                     st.session_state.success_resource_name = name
                     st.rerun()
@@ -93,10 +93,10 @@ with st.form(f"create_resource_form_{st.session_state.form_key_counter}"):
                 st.error(f"Error connecting to the API: {str(e)}")
                 st.info("Please ensure the API server is running")
 
-# Show success modal if NGO was added successfully
+# Show success modal if resource was added successfully
 if st.session_state.show_success_modal:
     show_success_dialog(st.session_state.success_resource_name)
 
-# Add a button to return to the NGO Directory
+# Add a button to return to the Sotware Engineer Home
 if st.button("Return to Software Engineer Home", type="primary"):
     st.switch_page("pages/00_Software_Engineer_Home.py")

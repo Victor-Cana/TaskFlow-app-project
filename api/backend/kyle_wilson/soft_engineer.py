@@ -121,6 +121,7 @@ def create_resource():
         return jsonify({"message": "Resource created"}), 201
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
 
 # creating a new user
 @kyle_wilson.route('/users', methods=['POST'])
@@ -175,29 +176,50 @@ def update_resource_by_id(resourceID):
         cursor.execute("SELECT * FROM Resources WHERE resourceID = %s", (resourceID,))
         existing = cursor.fetchone()
         if not existing:
+            cursor.close()
             return jsonify({"error": "resourceID not found"}), 404
 
-        # Update the resource fields
-        query = """
-            UPDATE Resources 
-            SET name = %s, type = %s, description = %s, link = %s, dateDue = %s 
-            WHERE resourceID = %s
-        """
-        cursor.execute(query, (
-            data["name"],
-            data["type"],
-            data["description"],
-            data["link"],
-            data["dateDue"],
-            resourceID
-        ))
+        # Build the update query based on provided fields
+        update_fields = []
+        values = []
+
+        # Only update fields that are provided in the request
+        if "name" in data:
+            update_fields.append("name = %s")
+            values.append(data["name"])
+        
+        if "type" in data:
+            update_fields.append("type = %s")
+            values.append(data["type"])
+        
+        if "description" in data:
+            update_fields.append("description = %s")
+            values.append(data["description"])
+        
+        if "link" in data:
+            update_fields.append("link = %s")
+            values.append(data["link"])
+        
+        if "dateDue" in data:
+            update_fields.append("dateDue = %s")
+            values.append(data["dateDue"])
+
+        # Check if at least one field is provided
+        if not update_fields:
+            cursor.close()
+            return jsonify({"error": "No valid fields provided for update"}), 400
+
+        # Add resourceID to values for WHERE clause
+        values.append(resourceID)
+
+        # Build and execute the query
+        query = f"UPDATE Resources SET {', '.join(update_fields)} WHERE resourceID = %s"
+        cursor.execute(query, tuple(values))
         db.get_db().commit()
         cursor.close()
 
         return jsonify({"message": "Resource updated successfully"}), 200
 
     except Exception as e:
+        current_app.logger.error(f"Error updating resource: {str(e)}")
         return jsonify({"error": str(e)}), 500
-
-
-
