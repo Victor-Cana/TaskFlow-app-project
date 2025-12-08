@@ -51,6 +51,7 @@ def create_app():
     app.logger.info("create_app(): registering blueprints with Flask app object.")
     app.register_blueprint(kyle_wilson, url_prefix="/software_engineer")
     app.register_blueprint(john_kraft, url_prefix='/client_ceo')
+    app.register_blueprint(ryan_kim, url_prefix="/team_member")
 
     # Don't forget to return the app object
     return app
