@@ -6,37 +6,26 @@ from flask import current_app
 #Create a Blueprint for Ryan Kim routes
 ryan_kim = Blueprint("Team Member", __name__)
 
-# wants to see other people time worked
 @ryan_kim.route('/worksessions/<int:resourceID>', methods=['GET'])
 def see_time_worked(resourceID):
     try:
         current_app.logger.info('Starting see_time_worked request')
         cursor = db.get_db().cursor()
 
-   # Prepare the base query
         query = """
-            SELECT resourceID, SUM(endTime - startTime) AS total_duration
+            SELECT resourceID, SUM(TIMESTAMPDIFF(SECOND, startTime, endTime)) AS total_duration
             FROM WorkSessions
-            WHERE 1=1
+            WHERE resourceID = %s
+            GROUP BY resourceID
         """
-        params = []
-
-        # Add filters if provided
-        if resource_id:
-            query += " AND resourceID = %s"
-            params.append(resource_id)
-
-        query += " GROUP BY resourceID"
-
-        current_app.logger.debug(f'Executing query: {query} with params: {params}')
-        cursor.execute(query, params)
+        
+        cursor.execute(query, (resourceID,))
         activity_logs = cursor.fetchall()
         cursor.close()
 
-        current_app.logger.info(f'Successfully retrieved {len(activity_logs)} activity logs')
         return jsonify(activity_logs), 200
-    except Error as e:
-        current_app.logger.error(f'Database error in get_activity_logs: {str(e)}')
+    except Exception as e:
+        current_app.logger.error(f'Database error: {str(e)}')
         return jsonify({"error": str(e)}), 500
 
 #Get all projects associated with a specific user
