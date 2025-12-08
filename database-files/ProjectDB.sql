@@ -13,7 +13,8 @@ DROP TABLE IF EXISTS Messages;
 DROP TABLE IF EXISTS Projects;
 DROP TABLE IF EXISTS Users;
 
-
+# VIEW discussed and approved by prof Fontenot
+DROP VIEW IF EXISTS resource_counts_view;
 
 
 CREATE TABLE IF NOT EXISTS Users
@@ -175,6 +176,12 @@ CREATE TABLE IF NOT EXISTS WorkSessions(
                                     ON UPDATE CASCADE
                                     ON DELETE CASCADE
 );
+
+# creating VIEW for derived attribute 'resourceCounts'
+CREATE VIEW resource_counts_view AS
+   SELECT reportID, COUNT(*) as resourceCount
+   FROM Track
+   GROUP BY reportID;
 
 USE ProjectDB;
 
