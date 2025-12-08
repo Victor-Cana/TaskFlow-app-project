@@ -8,6 +8,7 @@ from backend.db_connection import db
 # from backend.simple.simple_routes import simple_routes
 from backend.kyle_wilson.soft_engineer import kyle_wilson
 from backend.john_kraft.client_cfo import john_kraft
+from backend.ryan_kim import ryan_kim
 
 def create_app():
     app = Flask(__name__)
