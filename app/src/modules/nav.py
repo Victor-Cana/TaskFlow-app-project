@@ -139,6 +139,15 @@ def SideBarLinks(show_home=False):
             DeleteResourceNav()
             CreateUserNav()
 
+        # Add this section for Team Member
+        if st.session_state.get('role') == 'Team Member':
+            TeamMemberHomeNav()
+            GetWorkedTimeNav()
+            UserProjectsNav()
+            ProjectDeadlinesNav()
+            RemoveResourceAccessNav()
+            ProjectResourcesNav()
+
         # If the user role is usaid worker, show the Api Testing page
         if st.session_state["role"] == "usaid_worker":
             usaidWorkerHomeNav()
