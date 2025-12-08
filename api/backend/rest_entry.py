@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 import os
 import logging
 from logging.handlers import RotatingFileHandler
-
 from backend.db_connection import db
 # from backend.simple.simple_routes import simple_routes
 from backend.kyle_wilson.soft_engineer import kyle_wilson

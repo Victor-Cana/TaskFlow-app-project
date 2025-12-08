@@ -41,36 +41,7 @@ def CreateUserNav():
         "pages/04_Create_User.py", label="Create User", icon="➕"
     )
 
-#### ------------------------ Links for Role of Team Member ------------------------
-def TeamMemberHomeNav():
-    st.sidebar.page_link(
-        "pages/30_Team_Member_Home.py", label="Team Member Home", icon="🏠"
-    )
 
-def GetWorkedTimeNav():
-    st.sidebar.page_link(
-        "pages/31_Get_Worked_Time.py", label="Get Worked Time", icon="⏱️"
-    )
-
-def UserProjectsNav():
-    st.sidebar.page_link(
-        "pages/32_Get_Projects.py", label="User Projects", icon="📁"
-    )
-
-def ProjectDeadlinesNav():
-    st.sidebar.page_link(
-        "pages/33_Get_Deadlines.py", label="Project Deadlines", icon="📅"
-    )
-
-def RemoveResourceAccessNav():
-    st.sidebar.page_link(
-        "pages/34_Delete_Resource_Access.py", label="Remove Resource Access", icon="🚫"
-    )
-
-def ProjectResourcesNav():
-    st.sidebar.page_link(
-        "pages/35_Get_Project_Resources.py", label="Project Resources", icon="📦"
-    )
 
 ## ------------------------ Examples for Role of usaid_worker ------------------------
 
@@ -138,15 +109,6 @@ def SideBarLinks(show_home=False):
             UpdateResourceNav()
             DeleteResourceNav()
             CreateUserNav()
-
-        # Add this section for Team Member
-        if st.session_state['role'] == 'team_member':
-            TeamMemberHomeNav()
-            GetWorkedTimeNav()
-            UserProjectsNav()
-            ProjectDeadlinesNav()
-            RemoveResourceAccessNav()
-            ProjectResourcesNav()
 
         # If the user role is usaid worker, show the Api Testing page
         if st.session_state["role"] == "usaid_worker":
