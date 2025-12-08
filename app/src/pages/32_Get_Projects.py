@@ -25,7 +25,7 @@ def show_success_dialog(user_name):
 # Button to fetch time worked
 if st.button("Get Time Worked"):
     try:
-        response = requests.get(f"http://web-api:4000/rk/worksessions/{resource_id}")
+        response = requests.get(f"http://web-api:4000/team_member/worksessions/{resource_id}")
         
         if response.status_code == 200:
             data = response.json()
