@@ -41,18 +41,18 @@ def get_user_projects(userId):
 
         # Get all projects for the user
         query = """
-            SELECT *
-            FROM Projects P
-            JOIN AssignedTo a ON p.ProjectID = a.ProjectID
-            WHERE a.UserID = %s AND a.DateRemoved IS NULL
-            ORDER BY p.DateDue
+            SELECT p.*
+            FROM Projects p
+            JOIN AssignedTo a ON p.projectID = a.projectID
+            WHERE a.userID = %s AND a.dateRemoved IS NULL
+            ORDER BY p.dateDue
         """
         cursor.execute(query, (userId,))
         projects = cursor.fetchall()
         cursor.close()
 
         return jsonify(projects), 200
-    except Error as e:
+    except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 # Get all upcoming deadlines for reports in a specific project
