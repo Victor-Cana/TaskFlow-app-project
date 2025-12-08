@@ -140,7 +140,7 @@ def SideBarLinks(show_home=False):
             CreateUserNav()
 
         # Add this section for Team Member
-        if st.session_state['role'] == 'Team Member':
+        if st.session_state['role'] == 'team_member':
             TeamMemberHomeNav()
             GetWorkedTimeNav()
             UserProjectsNav()
