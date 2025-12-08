@@ -29,7 +29,7 @@ def show_success_dialog(message):
         if st.button("Return to Project Manager Home", use_container_width=True):
             st.session_state.show_success_modal = False
             st.session_state.success_message = ""
-            st.switch_page("pages/22_Project_Manager_Home.py")
+            st.switch_page("pages/20_Project_Manager_Home.py")
     
     with col2:
         if st.button("Assign Another User", use_container_width=True):
@@ -98,4 +98,4 @@ if st.session_state.show_success_modal:
 # Add a button to return to the Project Manager Home
 if st.button("Return to Project Manager Home", type="primary"):
     st.session_state.show_success_modal = False
-    st.switch_page("pages/22_Project_Manager_Home.py")
+    st.switch_page("pages/20_Project_Manager_Home.py")
