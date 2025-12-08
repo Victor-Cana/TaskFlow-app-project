@@ -97,4 +97,5 @@ if st.session_state.show_success_modal:
 
 # Add a button to return to the Project Manager Home
 if st.button("Return to Project Manager Home", type="primary"):
+    st.session_state.show_success_modal = False
     st.switch_page("pages/22_Project_Manager_Home.py")

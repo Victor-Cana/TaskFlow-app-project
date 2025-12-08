@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS AssignedTo(
  projectID INTEGER,
  dateAssigned DATETIME,
  dateRemoved DATETIME,
- accessLevel INTEGER,
+ accessLevel VARCHAR(50),
  PRIMARY KEY(userID,projectID),
  FOREIGN KEY (userID) REFERENCES Users(userID)
                                   ON UPDATE CASCADE

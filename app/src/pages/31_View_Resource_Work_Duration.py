@@ -6,48 +6,57 @@ from modules.nav import SideBarLinks
 # Initialize sidebar
 SideBarLinks()
 
-st.title("View Project Resources")
+st.title("View Resource Work Duration")
 
-# Input for project ID
-projectID = st.number_input("Enter Project ID", min_value=1, step=1, key="project_id_input")
+st.write("This page shows the total work duration for each resource across all work sessions.")
 
-if st.button("Load Resources", type="primary"):
-    if projectID:
-        try:
-            # API endpoint
-            API_URL = f"http://web-api:4000/project_manager/projects/{projectID}/resources"
+if st.button("Load Work Durations", type="primary"):
+    try:
+        # API endpoint
+        API_URL = "http://web-api:4000/project_manager/resources/work-duration"
+        
+        # Fetch work durations from backend
+        response = requests.get(API_URL)
+        
+        if response.status_code == 200:
+            durations = response.json()
             
-            # Fetch resources from backend
-            response = requests.get(API_URL)
-            
-            if response.status_code == 200:
-                resources = response.json()
+            if durations:
+                st.success(f"Found work duration data for {len(durations)} resources")
                 
-                if resources:
-                    st.success(f"Found {len(resources)} resources for Project #{projectID}")
+                df = pd.DataFrame(durations)
+                
+                # Convert seconds to hours and rename column
+                df['total_duration'] = pd.to_numeric(df['total_duration'], errors='coerce') 
+                df['Total Hours Worked'] = df['total_duration'] / 3600
+                df = df[['resourceID', 'Total Hours Worked']]  
+                
+                # Display as a table
+                st.dataframe(df, use_container_width=True, hide_index=True)
+                
+                # Display a bar chart with horizontal labels
+                if len(durations) > 0:
+                    st.write("### Duration Visualization")
                     
-                    # Convert to DataFrame for better display
-                    df = pd.DataFrame(resources)
+                    # Set resourceID as string (For Display)
+                    chart_data = df.copy()
+                    chart_data['resourceID'] = chart_data['resourceID'].astype(str)
+                    chart_data = chart_data.set_index('resourceID')
                     
-                    # Select relevant columns to display
-                    columns_to_display = ['resourceID', 'name', 'type', 'description', 'link', 'dateDue']
-                    df_display = df[[col for col in columns_to_display if col in df.columns]]
-                    
-                    # Display as a table
-                    st.dataframe(df_display, use_container_width=True, hide_index=True)
-                    
-                else:
-                    st.info(f"No resources found for Project #{projectID}")
+                    st.bar_chart(chart_data)
+                
             else:
-                st.error(f"Failed to load resources: {response.json().get('error', 'Unknown error')}")
-                
-        except requests.exceptions.RequestException as e:
-            st.error(f"Error connecting to the API: {str(e)}")
-            st.info("Please ensure the API server is running")
-    else:
-        st.warning("Please enter a valid Project ID")
+                st.info("No work duration data available")
+        else:
+            st.error(f"Failed to load work durations: {response.json().get('error', 'Unknown error')}")
+            
+    except requests.exceptions.RequestException as e:
+        st.error(f"Error connecting to the API: {str(e)}")
+        st.info("Please ensure the API server is running")
 
 # Add a button to return to the Project Manager Home
 st.write("")
 if st.button("Return to Project Manager Home", type="secondary"):
+    if "show_success_modal" in st.session_state:
+        st.session_state.show_success_modal = False
     st.switch_page("pages/22_Project_Manager_Home.py")
