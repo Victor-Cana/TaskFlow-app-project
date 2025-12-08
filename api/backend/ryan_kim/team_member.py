@@ -139,12 +139,13 @@ def get_project_resources(projectID):
         if not project:
             return jsonify({"error": "Project not found"}), 404
 
-        # Get associated resources
+        # Get associated resources through Reports -> Track
         query = """
-            SELECT r.*
+            SELECT DISTINCT r.*
             FROM Resources r
             JOIN Track t ON r.resourceID = t.resourceID
-            WHERE t.projectID = %s
+            JOIN Reports rep ON t.reportID = rep.reportID
+            WHERE rep.projectID = %s
         """
         cursor.execute(query, (projectID,))
         resources = cursor.fetchall()
