@@ -41,6 +41,56 @@ def CreateUserNav():
         "pages/04_Create_User.py", label="Create User", icon="➕"
     )
 
+#### ------------------------ Links for Role of Project Manager ------------------------
+def ProjectManagerHomeNav():
+    st.sidebar.page_link(
+        "pages/22_Project_Manager_Home.py", label="Project Manager Home", icon="🏠"
+    )
+
+def CreateReportNav():
+    st.sidebar.page_link(
+        "pages/23_Create_Report.py", label="Create Report", icon="📝"
+    )
+
+def GrantResourceAccessNav():
+    st.sidebar.page_link(
+        "pages/24_Grant_Resource_Access.py", label="Grant Resource Access", icon="🔓"
+    )
+
+def RevokeResourceAccessNav():
+    st.sidebar.page_link(
+        "pages/25_Revoke_Resource_Access.py", label="Revoke Resource Access", icon="🔒"
+    )
+
+def AssignUserToProjectNav():
+    st.sidebar.page_link(
+        "pages/26_Assign_User_to_Project.py", label="Assign User to Project", icon="👤"
+    )
+
+def RemoveUserFromProjectNav():
+    st.sidebar.page_link(
+        "pages/27_Remove_User_from_Project.py", label="Remove User from Project", icon="👥"
+    )
+
+def SendProjectMessageNav():
+    st.sidebar.page_link(
+        "pages/28_Send_Project_Message.py", label="Send Project Message", icon="💬"
+    )
+
+def UpdateMessageNav():
+    st.sidebar.page_link(
+        "pages/29_Update_Message.py", label="Update Message", icon="✏️"
+    )
+
+def ViewProjectResourcesNav():
+    st.sidebar.page_link(
+        "pages/30_View_Project_Resources.py", label="View Project Resources", icon="📊"
+    )
+
+def ViewResourceWorkDurationNav():
+    st.sidebar.page_link(
+        "pages/31_View_Resource_Work_Duration.py", label="View Resource Work Duration", icon="⏱️"
+    )
 
 
 ## ------------------------ Links for role of Client CFO ------------------------
@@ -121,6 +171,19 @@ def SideBarLinks(show_home=False):
             CreateNewMilestoneNav()
             ViewUserProjectsNav()
             PullReportTypeNav()
+            
+        # If the user role is project_manager, show the project manager pages
+        if st.session_state["role"] == "project_manager":
+            ProjectManagerHomeNav()
+            CreateReportNav()
+            GrantResourceAccessNav()
+            RevokeResourceAccessNav()
+            AssignUserToProjectNav()
+            RemoveUserFromProjectNav()
+            SendProjectMessageNav()
+            UpdateMessageNav()
+            ViewProjectResourcesNav()
+            ViewResourceWorkDurationNav()
             
 
         # If the user is an administrator, give them access to the administrator pages
