@@ -8,7 +8,7 @@ from backend.db_connection import db
 from backend.kyle_wilson.soft_engineer import kyle_wilson
 from backend.john_kraft.client_cfo import john_kraft
 from backend.ryan_kim.team_member import ryan_kim
-
+from backend.evan_park.project_manager_routes import projects
 def create_app():
     app = Flask(__name__)
 
@@ -52,7 +52,7 @@ def create_app():
     app.register_blueprint(kyle_wilson, url_prefix="/software_engineer")
     app.register_blueprint(john_kraft, url_prefix='/client_cfo')
     app.register_blueprint(ryan_kim, url_prefix="/team_member")
-
+    app.register_blueprint(projects, url_prefix="/project_manager")
     # Don't forget to return the app object
     return app
 
