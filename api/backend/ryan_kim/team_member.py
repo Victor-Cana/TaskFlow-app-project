@@ -143,21 +143,20 @@ def get_project_resources(projectID):
         query = """
             SELECT r.*
             FROM Resources r
-            JOIN Track t ON r.ResourceID = t.ResourceID
-            WHERE t.ProjectID = %s
+            JOIN Track t ON r.resourceID = t.resourceID
+            WHERE t.projectID = %s
         """
         cursor.execute(query, (projectID,))
         resources = cursor.fetchall()
 
-        # Combine data from multiple related queries into one object to return (after jsonify)
+        # Combine data
         project["resources"] = resources
 
         cursor.close()
         
-        current_app.logger.info(f'Successfully retrieved project and resources for projectID: {projectID}')
         return jsonify(project), 200
-    except Error as e:
-        current_app.logger.error(f'Database error in get_project_resources: {str(e)}')
+    except Exception as e:
+        current_app.logger.error(f'Database error: {str(e)}')
         return jsonify({"error": str(e)}), 500
 
         
