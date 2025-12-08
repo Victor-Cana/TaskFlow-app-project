@@ -38,7 +38,7 @@ def DeleteResourceNav():
 
 def CreateUserNav():
     st.sidebar.page_link(
-        "pages/04_Create_User.py", label="Create Resource", icon="➕"
+        "pages/04_Create_User.py", label="Create User", icon="➕"
     )
 
 
