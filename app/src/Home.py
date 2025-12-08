@@ -73,7 +73,7 @@ if st.button('Act as Evan Park, a Student Group Project Manager',
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'project_manager'
     st.session_state['first_name'] = 'Evan'
-    st.switch_page('pages/20_Project_Manager_Home.py')
+    st.switch_page('pages/22_Project_Manager_Home.py')
 
 if st.button('Act as Ryan Kim, a Student Team Member', 
             type = 'primary', 
