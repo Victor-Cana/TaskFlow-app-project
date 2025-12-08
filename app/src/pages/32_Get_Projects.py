@@ -1,6 +1,5 @@
 import streamlit as st
 import requests
-from streamlit_extras.app_logo import add_logo
 from modules.nav import SideBarLinks
 
 # Initialize session state FIRST
@@ -12,38 +11,40 @@ if 'success_user_name' not in st.session_state:
 # Initialize sidebar
 SideBarLinks()
 
-st.title("Time Logged")
+st.title("User Projects")
 
-# Input for resource ID
-resource_id = st.number_input("Enter Resource ID", min_value=1, step=1)
+# Input for user ID
+user_id = st.number_input("Enter User ID", min_value=1, step=1)
 
 # Function to show success dialog
 def show_success_dialog(user_name):
     st.balloons()
-    st.success(f"Successfully retrieved time worked for {user_name}!")
+    st.success(f"Successfully retrieved projects for {user_name}!")
 
-# Button to fetch time worked
-if st.button("Get Time Worked"):
+# Button to fetch user projects
+if st.button("Get User Projects"):
     try:
-        response = requests.get(f"http://web-api:4000/team_member/worksessions/{resource_id}")
+        response = requests.get(f"http://web-api:4000/team_member/users/{user_id}/projects")
         
         if response.status_code == 200:
             data = response.json()
             
             if data:
-                st.success("Successfully retrieved time data!")
+                st.success("Successfully retrieved projects!")
                 st.session_state.show_success_modal = True
-                st.session_state.success_user_name = f"Resource {resource_id}"
+                st.session_state.success_user_name = f"User {user_id}"
                 
                 # Display the results
-                st.subheader("Time Worked Summary")
-                for record in data:
-                    st.metric(
-                        label=f"Resource ID: {record['resourceID']}", 
-                        value=f"{record['total_duration']} hours"
-                    )
+                st.subheader("Projects")
+                for project in data:
+                    with st.expander(f"Project: {project.get('ProjectName', 'N/A')}"):
+                        st.write(f"**Project ID:** {project.get('ProjectID', 'N/A')}")
+                        st.write(f"**Description:** {project.get('Description', 'N/A')}")
+                        st.write(f"**Due Date:** {project.get('DateDue', 'N/A')}")
             else:
-                st.warning("No work sessions found for this resource.")
+                st.warning("No projects found for this user.")
+        elif response.status_code == 404:
+            st.error("User not found.")
         else:
             st.error(f"Error fetching data: {response.status_code}")
             
@@ -52,7 +53,7 @@ if st.button("Get Time Worked"):
     except Exception as e:
         st.error(f"An error occurred: {str(e)}")
 
-# Show success modal if getting work time was successful
+# Show success modal if retrieval was successful
 if st.session_state.get('show_success_modal', False):
     show_success_dialog(st.session_state.get('success_user_name', ''))
 
