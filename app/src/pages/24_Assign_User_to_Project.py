@@ -5,7 +5,7 @@ from modules.nav import SideBarLinks
 # Initialize sidebar
 SideBarLinks()
 
-st.title("Grant Resource Access")
+st.title("Assign User to Project")
 
 # Initialize session state for modal
 if "show_success_modal" not in st.session_state:
@@ -29,10 +29,10 @@ def show_success_dialog(message):
         if st.button("Return to Project Manager Home", use_container_width=True):
             st.session_state.show_success_modal = False
             st.session_state.success_message = ""
-            st.switch_page("pages/22_Project_Manager_Home.py")
+            st.switch_page("pages/20_Project_Manager_Home.py")
     
     with col2:
-        if st.button("Grant Another Access", use_container_width=True):
+        if st.button("Assign Another User", use_container_width=True):
             st.session_state.show_success_modal = False
             st.session_state.success_message = ""
             st.session_state.reset_form = True
@@ -44,54 +44,58 @@ if st.session_state.reset_form:
     st.session_state.reset_form = False
 
 # API endpoint
-API_URL = "http://web-api:4000/project_manager/access"
+API_URL = "http://web-api:4000/project_manager/assignments"
 
-# Create a form for granting access
-with st.form(f"grant_access_form_{st.session_state.form_key_counter}"):
-    st.subheader("Grant Access Information")
+# Create a form for assigning user
+with st.form(f"assign_user_form_{st.session_state.form_key_counter}"):
+    st.subheader("Assignment Information")
     
     # Required fields marked with *
-    userID = st.number_input("User ID *", min_value=1, step=1)
     projectID = st.number_input("Project ID *", min_value=1, step=1)
-    resourceID = st.number_input("Resource ID *", min_value=1, step=1)
+    userID = st.number_input("User ID *", min_value=1, step=1)
+    accessLevel = st.selectbox(
+        "Access Level *",
+        options=["read", "write", "admin"],
+        index=0
+    )
     
     # Form submission button
-    submitted = st.form_submit_button("Grant Access")
+    submitted = st.form_submit_button("Assign User")
     
     if submitted:
         # Validate required fields
-        if not all([userID, projectID, resourceID]):
+        if not all([projectID, userID, accessLevel]):
             st.error("Please fill in all required fields marked with *")
         else:
             # Prepare the data for API
-            access_data = {
-                "userID": userID,
+            assignment_data = {
                 "projectID": projectID,
-                "resourceID": resourceID
+                "userID": userID,
+                "accessLevel": accessLevel
             }
             
             try:
                 # Send POST request to API
-                response = requests.post(API_URL, json=access_data)
+                response = requests.post(API_URL, json=assignment_data)
                 
                 if response.status_code == 201:
                     # Show success modal
                     st.session_state.show_success_modal = True
-                    st.session_state.success_message = f"Access granted successfully to User #{userID} for Resource #{resourceID}"
+                    st.session_state.success_message = f"User #{userID} assigned to Project #{projectID} with {accessLevel} access"
                     st.rerun()
                 else:
                     st.error(
-                        f"Failed to grant access: {response.json().get('error', 'Unknown error')}"
+                        f"Failed to assign user: {response.json().get('error', 'Unknown error')}"
                     )
             except requests.exceptions.RequestException as e:
                 st.error(f"Error connecting to the API: {str(e)}")
                 st.info("Please ensure the API server is running")
 
-# Show success modal if access was granted successfully
+# Show success modal if user was assigned successfully
 if st.session_state.show_success_modal:
     show_success_dialog(st.session_state.success_message)
 
 # Add a button to return to the Project Manager Home
 if st.button("Return to Project Manager Home", type="primary"):
     st.session_state.show_success_modal = False
-    st.switch_page("pages/22_Project_Manager_Home.py")
+    st.switch_page("pages/20_Project_Manager_Home.py")

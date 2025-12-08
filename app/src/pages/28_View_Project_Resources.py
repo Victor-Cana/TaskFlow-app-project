@@ -51,4 +51,4 @@ if st.button("Load Resources", type="primary"):
 st.write("")
 if st.button("Return to Project Manager Home", type="secondary"):
     st.session_state.show_success_modal = False
-    st.switch_page("pages/22_Project_Manager_Home.py")
+    st.switch_page("pages/20_Project_Manager_Home.py")

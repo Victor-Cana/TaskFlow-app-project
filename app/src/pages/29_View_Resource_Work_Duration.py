@@ -59,4 +59,4 @@ st.write("")
 if st.button("Return to Project Manager Home", type="secondary"):
     if "show_success_modal" in st.session_state:
         st.session_state.show_success_modal = False
-    st.switch_page("pages/22_Project_Manager_Home.py")
+    st.switch_page("pages/20_Project_Manager_Home.py")

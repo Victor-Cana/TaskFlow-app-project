@@ -44,52 +44,52 @@ def CreateUserNav():
 #### ------------------------ Links for Role of Project Manager ------------------------
 def ProjectManagerHomeNav():
     st.sidebar.page_link(
-        "pages/22_Project_Manager_Home.py", label="Project Manager Home", icon="🏠"
+        "pages/20_Project_Manager_Home.py", label="Project Manager Home", icon="🏠"
     )
 
 def CreateReportNav():
     st.sidebar.page_link(
-        "pages/23_Create_Report.py", label="Create Report", icon="📝"
+        "pages/21_Create_Report.py", label="Create Report", icon="📝"
     )
 
 def GrantResourceAccessNav():
     st.sidebar.page_link(
-        "pages/24_Grant_Resource_Access.py", label="Grant Resource Access", icon="🔓"
+        "pages/22_Grant_Resource_Access.py", label="Grant Resource Access", icon="🔓"
     )
 
 def RevokeResourceAccessNav():
     st.sidebar.page_link(
-        "pages/25_Revoke_Resource_Access.py", label="Revoke Resource Access", icon="🔒"
+        "pages/23_Revoke_Resource_Access.py", label="Revoke Resource Access", icon="🔒"
     )
 
 def AssignUserToProjectNav():
     st.sidebar.page_link(
-        "pages/26_Assign_User_to_Project.py", label="Assign User to Project", icon="👤"
+        "pages/24_Assign_User_to_Project.py", label="Assign User to Project", icon="👤"
     )
 
 def RemoveUserFromProjectNav():
     st.sidebar.page_link(
-        "pages/27_Remove_User_from_Project.py", label="Remove User from Project", icon="👥"
+        "pages/25_Remove_User_from_Project.py", label="Remove User from Project", icon="👥"
     )
 
 def SendProjectMessageNav():
     st.sidebar.page_link(
-        "pages/28_Send_Project_Message.py", label="Send Project Message", icon="💬"
+        "pages/26_Send_Project_Message.py", label="Send Project Message", icon="💬"
     )
 
 def UpdateMessageNav():
     st.sidebar.page_link(
-        "pages/29_Update_Message.py", label="Update Message", icon="✏️"
+        "pages/27_Update_Message.py", label="Update Message", icon="✏️"
     )
 
 def ViewProjectResourcesNav():
     st.sidebar.page_link(
-        "pages/30_View_Project_Resources.py", label="View Project Resources", icon="📊"
+        "pages/28_View_Project_Resources.py", label="View Project Resources", icon="📊"
     )
 
 def ViewResourceWorkDurationNav():
     st.sidebar.page_link(
-        "pages/31_View_Resource_Work_Duration.py", label="View Resource Work Duration", icon="⏱️"
+        "pages/29_View_Resource_Work_Duration.py", label="View Resource Work Duration", icon="⏱️"
     )
 
 
@@ -123,6 +123,36 @@ def PullReportTypeNav():
      st.sidebar.page_link(
         'pages/16_Get_Type_Reports.py', label="Get Reports", icon="📁"
     )   
+## ------------------------ Links for Team Member ------------------------
+def TeamMemberHomeNav():
+    st.sidebar.page_link(
+        "pages/30_Team_Member_Home.py", label="Team Member Home", icon="🏠"
+    )
+
+def GetWorkedTimeNav():
+    st.sidebar.page_link(
+        "pages/31_Get_Worked_Time.py", label="Get Worked Time", icon="⏱️"
+    )
+
+def UserProjectsNav():
+    st.sidebar.page_link(
+        "pages/32_Get_Projects.py", label="User Projects", icon="📁"
+    )
+
+def ProjectDeadlinesNav():
+    st.sidebar.page_link(
+        "pages/33_Get_Deadlines.py", label="Project Deadlines", icon="📅"
+    )
+
+def RemoveResourceAccessNav():
+    st.sidebar.page_link(
+        "pages/34_Delete_Resource_Access.py", label="Remove Resource Access", icon="🚫"
+    )
+
+def ProjectResourcesNav():
+    st.sidebar.page_link(
+        "pages/35_Get_Project_Resources.py", label="Project Resources", icon="📦"
+    )
 
 
 #### ------------------------ System Admin Role ------------------------
@@ -171,6 +201,15 @@ def SideBarLinks(show_home=False):
             CreateNewMilestoneNav()
             ViewUserProjectsNav()
             PullReportTypeNav()
+
+        # Add this section for Team Member
+        if st.session_state['role'] == 'team_member':
+            TeamMemberHomeNav()
+            GetWorkedTimeNav()
+            UserProjectsNav()
+            ProjectDeadlinesNav()
+            RemoveResourceAccessNav()
+            ProjectResourcesNav()
             
         # If the user role is project_manager, show the project manager pages
         if st.session_state["role"] == "project_manager":

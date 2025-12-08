@@ -59,4 +59,5 @@ if st.session_state.get('show_success_modal', False):
 
 # Add a button to return to the Team Member Home
 if st.button("Return to Team Member Home", type="primary"):
+    st.session_state.show_success_modal = False
     st.switch_page("pages/30_Team_Member_Home.py")
