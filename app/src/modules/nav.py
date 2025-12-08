@@ -44,52 +44,52 @@ def CreateUserNav():
 #### ------------------------ Links for Role of Project Manager ------------------------
 def ProjectManagerHomeNav():
     st.sidebar.page_link(
-        "pages/22_Project_Manager_Home.py", label="Project Manager Home", icon="🏠"
+        "pages/20_Project_Manager_Home.py", label="Project Manager Home", icon="🏠"
     )
 
 def CreateReportNav():
     st.sidebar.page_link(
-        "pages/23_Create_Report.py", label="Create Report", icon="📝"
+        "pages/21_Create_Report.py", label="Create Report", icon="📝"
     )
 
 def GrantResourceAccessNav():
     st.sidebar.page_link(
-        "pages/24_Grant_Resource_Access.py", label="Grant Resource Access", icon="🔓"
+        "pages/22_Grant_Resource_Access.py", label="Grant Resource Access", icon="🔓"
     )
 
 def RevokeResourceAccessNav():
     st.sidebar.page_link(
-        "pages/25_Revoke_Resource_Access.py", label="Revoke Resource Access", icon="🔒"
+        "pages/23_Revoke_Resource_Access.py", label="Revoke Resource Access", icon="🔒"
     )
 
 def AssignUserToProjectNav():
     st.sidebar.page_link(
-        "pages/26_Assign_User_to_Project.py", label="Assign User to Project", icon="👤"
+        "pages/24_Assign_User_to_Project.py", label="Assign User to Project", icon="👤"
     )
 
 def RemoveUserFromProjectNav():
     st.sidebar.page_link(
-        "pages/27_Remove_User_from_Project.py", label="Remove User from Project", icon="👥"
+        "pages/25_Remove_User_from_Project.py", label="Remove User from Project", icon="👥"
     )
 
 def SendProjectMessageNav():
     st.sidebar.page_link(
-        "pages/28_Send_Project_Message.py", label="Send Project Message", icon="💬"
+        "pages/26_Send_Project_Message.py", label="Send Project Message", icon="💬"
     )
 
 def UpdateMessageNav():
     st.sidebar.page_link(
-        "pages/29_Update_Message.py", label="Update Message", icon="✏️"
+        "pages/27_Update_Message.py", label="Update Message", icon="✏️"
     )
 
 def ViewProjectResourcesNav():
     st.sidebar.page_link(
-        "pages/30_View_Project_Resources.py", label="View Project Resources", icon="📊"
+        "pages/28_View_Project_Resources.py", label="View Project Resources", icon="📊"
     )
 
 def ViewResourceWorkDurationNav():
     st.sidebar.page_link(
-        "pages/31_View_Resource_Work_Duration.py", label="View Resource Work Duration", icon="⏱️"
+        "pages/29_View_Resource_Work_Duration.py", label="View Resource Work Duration", icon="⏱️"
     )
 
 
