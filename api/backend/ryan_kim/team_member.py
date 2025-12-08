@@ -99,32 +99,29 @@ def get_project_deadlines(projectID):
         return jsonify({"error": str(e)}), 500
 
 # Remove access to a resource for a specific user
-@ryan_kim.route("/haveaccessto/<int:userId>/<int:resourceId>", methods=["DELETE"])
-def remove_resource_access(userId, resourceId):
+@ryan_kim.route("/haveaccessto/<int:userId>/<int:projectId>/<int:resourceId>", methods=["DELETE"])
+def remove_resource_access(userId, projectId, resourceId):
     try:
-        current_app.logger.info(f'Starting remove_resource_access request for userId: {userId}, resourceId: {resourceId}')
+        current_app.logger.info(f'Starting remove_resource_access request')
         
         cursor = db.get_db().cursor()
         
         # Check if access record exists
-        cursor.execute("SELECT * FROM HaveAccessTo WHERE userID = %s AND resourceID = %s", (userId, resourceId))
+        cursor.execute("SELECT * FROM HaveAccessTo WHERE userID = %s AND projectID = %s AND resourceID = %s", (userId, projectId, resourceId))
         if not cursor.fetchone():
             cursor.close()
             return jsonify({"error": "Access record not found"}), 404
 
         # Delete the access record
-        query = "DELETE FROM HaveAccessTo WHERE userID = %s AND resourceID = %s"
-        params = [userId, resourceId]
+        query = "DELETE FROM HaveAccessTo WHERE userID = %s AND projectID = %s AND resourceID = %s"
         
-        current_app.logger.debug(f'Executing query: {query} with params: {params}')
-        cursor.execute(query, params)
+        cursor.execute(query, (userId, projectId, resourceId))
         db.get_db().commit()
         cursor.close()
 
-        current_app.logger.info(f'Successfully removed access for userId: {userId}, resourceId: {resourceId}')
         return jsonify({"message": "Resource access removed successfully"}), 200
-    except Error as e:
-        current_app.logger.error(f'Database error in remove_resource_access: {str(e)}')
+    except Exception as e:
+        current_app.logger.error(f'Database error: {str(e)}')
         return jsonify({"error": str(e)}), 500
 
 # Get all resources associated with a specific project for export/documentation
