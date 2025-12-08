@@ -15,7 +15,7 @@ from backend.ml_models import model01
 john_kraft = Blueprint("Client CFO", __name__)
 
 # Get information for the reports that have due dates in the future
-@john_kraft.route('/reports/<datetime:dateDue>', methods=['GET'])
+@john_kraft.route('/reports/<string:dateDue>', methods=['GET'])
 def get_future_reports(link):
     try:
         cursor = db.get_db().cursor()
