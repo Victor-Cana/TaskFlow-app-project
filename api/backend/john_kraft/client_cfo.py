@@ -9,7 +9,7 @@ from flask import (
 )
 import json
 from backend.db_connection import db
-from backend.simple.playlist import sample_playlist_data
+# from backend.simple.playlist import sample_playlist_data
 from backend.ml_models import model01
 
 john_kraft = Blueprint("Client CFO", __name__)
