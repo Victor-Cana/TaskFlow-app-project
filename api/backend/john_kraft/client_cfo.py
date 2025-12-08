@@ -10,18 +10,18 @@ from flask import (
 import json
 from backend.db_connection import db
 # from backend.simple.playlist import sample_playlist_data
-from backend.ml_models import model01
+# from backend.ml_models import model01
 
 john_kraft = Blueprint("Client CFO", __name__)
 
 # Get information for the reports that have due dates in the future
-@john_kraft.route('/reports/<string:dateDue>', methods=['GET'])
-def get_future_reports(link):
+@john_kraft.route('/reports', methods=['GET'])
+def get_future_reports():
     try:
         cursor = db.get_db().cursor()
         
-        # Get Report information
-        cursor.execute("SELECT * FROM Reports WHERE %s > NOW()", (dateDue,))
+        # Get reports where dateDue is in the future
+        cursor.execute("SELECT * FROM Reports WHERE dateDue > NOW()")
         reports = cursor.fetchall()
 
         if not reports:
@@ -33,42 +33,40 @@ def get_future_reports(link):
         return jsonify({"error": str(e)}), 500
 
 
-# Create a new project
 @john_kraft.route('/projects', methods=['POST'])
 def create_new_project():
     try:
         data = request.get_json()
 
-        # check for required params
-        required_fields = ["projectID", "managerID", "creatorID"]
+        # check for required params (removed projectID - it's AUTO_INCREMENT)
+        required_fields = ["managerID", "creatorID"]
         for field in required_fields:
             if not data.get(field):
                 return jsonify({"error": f"Missing required field: {field}"}), 400
             
-        #optional params
+        # optional params
         projectName = data.get("projectName") or None
-        dateDUE = data.get("dateDUE") or None
+        dateDue = data.get("dateDue") or None  # Fixed: was dateDUE
         description = data.get("description") or None
         dateManaged = data.get("dateManaged") or None
         dateCreated = data.get("dateCreated") or None
 
         cursor = db.get_db().cursor()
         query = """
-        INSERT INTO Projects (projectID, managerID, creatorID,
-            projectName, dateDUE, description, dateManaged, dateCreated)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        INSERT INTO Projects (projectName, dateDue, description, dateCreated, 
+            creatorID, dateManaged, managerID)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
         """
         cursor.execute(
             query,
             (
-                data["projectID"],
                 projectName,
-                dateDUE,
-                data["managerID"],
-                data["creatorID"],
+                dateDue,
                 description,
+                dateCreated,
+                data["creatorID"],
                 dateManaged,
-                dateCreated
+                data["managerID"]
             ),
         )
         db.get_db().commit()
@@ -79,29 +77,28 @@ def create_new_project():
 
 # see how long work has been done on each resource
 @john_kraft.route("/WorkSessions/<int:resourceID>", methods=["GET"])
-def get_resource_work_duration():
+def get_resource_work_duration(resourceID):  # Add parameter!
     try:
-        current_app.logger.info('Starting get_resource_work_duration request')
+        current_app.logger.info(f'Getting work duration for resource {resourceID}')
         cursor = db.get_db().cursor()
 
         query = """
-        SELECT resourceID, SUM(endTime - startTime) AS total_duration
+        SELECT resourceID, SUM(TIMESTAMPDIFF(HOUR, startTime, endTime)) AS total_duration
         FROM WorkSessions
+        WHERE resourceID = %s
         GROUP BY resourceID
         """
         
-        cursor.execute(query)
-        durations = cursor.fetchall()
+        cursor.execute(query, (resourceID,))
+        duration = cursor.fetchone()
 
-        if not durations:
+        if not duration:
             return jsonify({"error": "duration not found"}), 404
 
         cursor.close()
-
-        current_app.logger.info(f'Successfully retrieved durations for {len(durations)} resources')
-        return jsonify(durations), 200
-    except Error as e:
-        current_app.logger.error(f'Database error in get_resource_work_duration: {str(e)}')
+        return jsonify(duration), 200
+    except Exception as e:
+        current_app.logger.error(f'Error: {str(e)}')
         return jsonify({"error": str(e)}), 500
 
 # Create a new milestone

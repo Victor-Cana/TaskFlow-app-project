@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS Users
 
 CREATE TABLE IF NOT EXISTS Messages
 (
-   messageID INTEGER PRIMARY KEY,
+   messageID INTEGER AUTO_INCREMENT PRIMARY KEY,
    messageType VARCHAR(50),
    messageUrgency VARCHAR(50),
    timeSent DATETIME,
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS Messages
 
 CREATE TABLE IF NOT EXISTS Projects
 (
- projectID INTEGER PRIMARY KEY ,
+ projectID INTEGER AUTO_INCREMENT PRIMARY KEY,
  projectName VARCHAR(50),
  dateDue DATETIME,
  description VARCHAR(250),
@@ -126,7 +126,7 @@ CREATE TABLE IF NOT EXISTS AssignedTo(
 
 
 CREATE TABLE IF NOT EXISTS Reports(
- reportID INTEGER PRIMARY KEY,
+ reportID INTEGER AUTO_INCREMENT KEY,
  projectID INTEGER NOT NULL,
  dateDue DATETIME,
  type VARCHAR(50),
@@ -260,80 +260,80 @@ UPDATE Users SET managerID = 21 WHERE userID= 34;
 UPDATE Users SET managerID = 21 WHERE userID= 35;
 
 
-INSERT INTO Messages(messageID,messageType,messageUrgency,messageBody,timeSent,messengerID) VALUES
- (1,'Info','Medium','Persistent 3rd generation approach','2024-05-06 06:53:00',10)
-,(2,'Alert','Medium','Optional contextually-based parallelism','2024-05-14 11:32:00',33)
-,(3,'Info','High','Multi-layered static synergy','2024-07-09 06:04:00',30)
-,(4,'Ping','Low','Centralized maximized open architecture','2024-08-06 12:47:00',2)
-,(5,'Ping','Medium','Down-sized bifurcated protocol','2024-08-10 03:50:00',16)
-,(6,'Ping','Low','Distributed web-enabled attitude','2024-09-18 04:51:00',3)
-,(7,'Reminder','Critical','Inverse intangible interface','2024-09-27 19:43:00',7)
-,(8,'Info','Low','Digitized directional matrices','2024-09-30 02:05:00',26)
-,(9,'Info','High','Progressive optimal hardware','2024-10-01 07:54:00',28)
-,(10,'Info','Critical','Streamlined encompassing middleware','2024-10-17 22:07:00',18)
-,(11,'Update','High','Persistent context-sensitive secured line','2024-10-20 17:57:00',12)
-,(12,'Info','Medium','Streamlined zero tolerance synergy','2024-10-27 02:36:00',22)
-,(13,'Info','High','Front-line 3rd generation model','2024-11-30 09:58:00',23)
-,(14,'Ping','Medium','Function-based systematic help-desk','2024-12-21 17:53:00',1)
-,(15,'Ping','Critical','Vision-oriented local solution','2025-01-08 04:14:00',18)
-,(16,'Alert','Low','Up-sized analyzing service-desk','2025-01-13 10:40:00',32)
-,(17,'Alert','Medium','Stand-alone high-level matrix','2025-01-27 00:56:00',20)
-,(18,'Info','Medium','Integrated logistical knowledge base','2025-02-04 05:00:00',1)
-,(19,'Ping','Critical','Enhanced 3rd generation database','2025-02-14 15:51:00',5)
-,(20,'Update','Critical','Cross-group background migration','2025-02-28 12:35:00',11)
-,(21,'Ping','Medium','Multi-channelled methodical application','2025-03-01 01:04:00',30)
-,(22,'Alert','Medium','Stand-alone background monitoring','2025-03-27 21:19:00',10)
-,(23,'Update','High','Fully-configurable bi-directional focus group','2025-04-03 01:15:00',18)
-,(24,'Alert','Medium','Horizontal directional emulation','2025-04-12 20:57:00',25)
-,(25,'Reminder','High','Expanded radical forecast','2025-05-19 04:47:00',12)
-,(26,'Alert','Low','Upgradable coherent process improvement','2025-05-31 04:00:00',27)
-,(27,'Ping','Medium','Down-sized regional interface','2025-05-31 09:04:00',32)
-,(28,'Update','High','Fully-configurable fault-tolerant solution','2025-07-06 05:51:00',21)
-,(29,'Ping','Medium','Customizable client-server synergy','2025-08-04 08:03:00',22)
-,(30,'Reminder','Medium','Enterprise-wide reciprocal projection','2025-08-16 08:13:00',32)
-,(31,'Reminder','High','Persevering client-server utilisation','2025-08-21 05:34:00',35)
-,(32,'Info','Critical','Mandatory motivating workforce','2025-08-27 00:50:00',8)
-,(33,'Update','Medium','Fully-configurable hybrid protocol','2025-09-10 04:43:00',10)
-,(34,'Ping','Critical','Cloned optimizing superstructure','2025-10-14 10:19:00',29)
-,(35,'Update','High','Multi-layered coherent artificial intelligence','2025-11-21 22:50:00',20);
+INSERT INTO Messages(messageType,messageUrgency,messageBody,timeSent,messengerID) VALUES
+ ('Info','Medium','Persistent 3rd generation approach','2024-05-06 06:53:00',10)
+,('Alert','Medium','Optional contextually-based parallelism','2024-05-14 11:32:00',33)
+,('Info','High','Multi-layered static synergy','2024-07-09 06:04:00',30)
+,('Ping','Low','Centralized maximized open architecture','2024-08-06 12:47:00',2)
+,('Ping','Medium','Down-sized bifurcated protocol','2024-08-10 03:50:00',16)
+,('Ping','Low','Distributed web-enabled attitude','2024-09-18 04:51:00',3)
+,('Reminder','Critical','Inverse intangible interface','2024-09-27 19:43:00',7)
+,('Info','Low','Digitized directional matrices','2024-09-30 02:05:00',26)
+,('Info','High','Progressive optimal hardware','2024-10-01 07:54:00',28)
+,('Info','Critical','Streamlined encompassing middleware','2024-10-17 22:07:00',18)
+,('Update','High','Persistent context-sensitive secured line','2024-10-20 17:57:00',12)
+,('Info','Medium','Streamlined zero tolerance synergy','2024-10-27 02:36:00',22)
+,('Info','High','Front-line 3rd generation model','2024-11-30 09:58:00',23)
+,('Ping','Medium','Function-based systematic help-desk','2024-12-21 17:53:00',1)
+,('Ping','Critical','Vision-oriented local solution','2025-01-08 04:14:00',18)
+,('Alert','Low','Up-sized analyzing service-desk','2025-01-13 10:40:00',32)
+,('Alert','Medium','Stand-alone high-level matrix','2025-01-27 00:56:00',20)
+,('Info','Medium','Integrated logistical knowledge base','2025-02-04 05:00:00',1)
+,('Ping','Critical','Enhanced 3rd generation database','2025-02-14 15:51:00',5)
+,('Update','Critical','Cross-group background migration','2025-02-28 12:35:00',11)
+,('Ping','Medium','Multi-channelled methodical application','2025-03-01 01:04:00',30)
+,('Alert','Medium','Stand-alone background monitoring','2025-03-27 21:19:00',10)
+,('Update','High','Fully-configurable bi-directional focus group','2025-04-03 01:15:00',18)
+,('Alert','Medium','Horizontal directional emulation','2025-04-12 20:57:00',25)
+,('Reminder','High','Expanded radical forecast','2025-05-19 04:47:00',12)
+,('Alert','Low','Upgradable coherent process improvement','2025-05-31 04:00:00',27)
+,('Ping','Medium','Down-sized regional interface','2025-05-31 09:04:00',32)
+,('Update','High','Fully-configurable fault-tolerant solution','2025-07-06 05:51:00',21)
+,('Ping','Medium','Customizable client-server synergy','2025-08-04 08:03:00',22)
+,('Reminder','Medium','Enterprise-wide reciprocal projection','2025-08-16 08:13:00',32)
+,('Reminder','High','Persevering client-server utilisation','2025-08-21 05:34:00',35)
+,('Info','Critical','Mandatory motivating workforce','2025-08-27 00:50:00',8)
+,('Update','Medium','Fully-configurable hybrid protocol','2025-09-10 04:43:00',10)
+,('Ping','Critical','Cloned optimizing superstructure','2025-10-14 10:19:00',29)
+,('Update','High','Multi-layered coherent artificial intelligence','2025-11-21 22:50:00',20);
 
 
-INSERT INTO Projects(projectID,projectName,dateDue,description,dateCreated,creatorID,dateManaged,managerID) VALUES
- (1,'nullam porttitor','2026-08-06',NULL,'2025-08-15',3,'2025-08-15',15)
-,(2,'neque aenean','2026-05-04',NULL,'2025-09-26',34,'2025-10-30',4)
-,(3,'posuere felis','2025-05-01',NULL,'2024-05-23',11,'2024-05-23',6)
-,(4,'massa quis','2026-03-06','In quis justo. Maecenas rhoncus aliquam lacus.','2025-08-07',11,'2025-08-07',25)
-,(5,'justo maecenas','2024-12-31',NULL,'2024-02-18',12,'2024-02-18',15)
-,(6,'iaculis','2025-01-27','In sagittis dui vel nisl. Duis ac nibh.','2024-01-29',35,'2024-02-15',14)
-,(7,'neque vestibulum','2026-09-14','Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.','2026-01-29',30,'2026-01-29',23)
-,(8,'arcu sed','2025-10-11','Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.','2024-11-07',11,'2024-11-07',31)
-,(9,'aliquet','2025-01-05',NULL,'2024-01-14',34,'2024-01-14',31)
-,(10,'ipsum primis in','2025-06-03','Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum.','2025-01-14',13,'2025-01-14',2)
-,(11,'laoreet ut','2026-07-31',NULL,'2026-03-25',1,'2026-03-31',32)
-,(12,'tempus','2026-11-08',NULL,'2026-06-21',20,'2026-06-21',31)
-,(13,'ac','2025-10-10','Etiam vel augue. Vestibulum rutrum rutrum neque.','2024-12-17',31,'2024-12-17',21)
-,(14,'quis orci','2026-05-08','Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.','2025-11-17',23,'2025-11-17',8)
-,(15,'metus sapien','2025-12-13','Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa.','2025-03-09',17,'2025-03-29',34)
-,(16,'vel','2026-01-08',NULL,'2025-07-19',24,'2025-07-19',3)
-,(17,'erat','2025-01-12',NULL,'2024-08-03',20,'2024-08-03',17)
-,(18,'id','2025-06-27',NULL,'2025-03-30',28,'2025-03-30',32)
-,(19,'est risus','2026-11-22','Sed ante.','2026-07-30',33,'2026-07-30',31)
-,(20,'tellus nisi eu','2026-03-15','Nunc nisl. Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa.','2026-01-07',11,'2026-01-31',4)
-,(21,'magna','2025-04-18',NULL,'2024-10-22',6,'2024-10-22',23)
-,(22,'tortor duis mattis','2025-11-12',NULL,'2025-02-07',30,'2025-02-07',14)
-,(23,'a','2025-03-25',NULL,'2024-11-03',17,'2024-12-01',20)
-,(24,'interdum mauris','2026-09-25','Nulla tellus. In sagittis dui vel nisl. Duis ac nibh.','2025-11-05',34,'2025-11-05',17)
-,(25,'volutpat','2026-10-20','Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum.','2026-04-15',21,'2026-04-30',31)
-,(26,'ante ipsum primis','2026-07-24','Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend.','2025-08-03',11,'2025-08-03',22)
-,(27,'diam','2025-06-30','Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci.','2025-01-23',18,'2025-01-23',28)
-,(28,'amet erat nulla','2025-12-16',NULL,'2025-09-03',13,'2025-09-13',25)
-,(29,'mi pede','2026-09-26','Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.','2026-02-22',7,'2026-02-22',17)
-,(30,'condimentum neque','2026-06-22',NULL,'2025-07-25',24,'2025-07-25',4)
-,(31,'mattis egestas','2025-11-07','Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est.','2025-08-23',16,'2025-08-23',2)
-,(32,'cursus id','2025-09-17',NULL,'2024-11-11',21,'2024-11-25',7)
-,(33,'id','2025-08-21',NULL,'2025-02-28',18,'2025-02-28',17)
-,(34,'risus semper','2025-12-06',NULL,'2025-07-17',22,'2025-07-17',4)
-,(35,'sem mauris','2026-04-15',NULL,'2025-12-27',31,'2025-12-27',24);
+INSERT INTO Projects(projectName,dateDue,description,dateCreated,creatorID,dateManaged,managerID) VALUES
+ ('nullam porttitor','2026-08-06',NULL,'2025-08-15',3,'2025-08-15',15)
+,('neque aenean','2026-05-04',NULL,'2025-09-26',34,'2025-10-30',4)
+,('posuere felis','2025-05-01',NULL,'2024-05-23',11,'2024-05-23',6)
+,('massa quis','2026-03-06','In quis justo. Maecenas rhoncus aliquam lacus.','2025-08-07',11,'2025-08-07',25)
+,('justo maecenas','2024-12-31',NULL,'2024-02-18',12,'2024-02-18',15)
+,('iaculis','2025-01-27','In sagittis dui vel nisl. Duis ac nibh.','2024-01-29',35,'2024-02-15',14)
+,('neque vestibulum','2026-09-14','Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.','2026-01-29',30,'2026-01-29',23)
+,('arcu sed','2025-10-11','Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus.','2024-11-07',11,'2024-11-07',31)
+,('aliquet','2025-01-05',NULL,'2024-01-14',34,'2024-01-14',31)
+,('ipsum primis in','2025-06-03','Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum.','2025-01-14',13,'2025-01-14',2)
+,('laoreet ut','2026-07-31',NULL,'2026-03-25',1,'2026-03-31',32)
+,('tempus','2026-11-08',NULL,'2026-06-21',20,'2026-06-21',31)
+,('ac','2025-10-10','Etiam vel augue. Vestibulum rutrum rutrum neque.','2024-12-17',31,'2024-12-17',21)
+,('quis orci','2026-05-08','Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.','2025-11-17',23,'2025-11-17',8)
+,('metus sapien','2025-12-13','Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa.','2025-03-09',17,'2025-03-29',34)
+,('vel','2026-01-08',NULL,'2025-07-19',24,'2025-07-19',3)
+,('erat','2025-01-12',NULL,'2024-08-03',20,'2024-08-03',17)
+,('id','2025-06-27',NULL,'2025-03-30',28,'2025-03-30',32)
+,('est risus','2026-11-22','Sed ante.','2026-07-30',33,'2026-07-30',31)
+,('tellus nisi eu','2026-03-15','Nunc nisl. Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa.','2026-01-07',11,'2026-01-31',4)
+,('magna','2025-04-18',NULL,'2024-10-22',6,'2024-10-22',23)
+,('tortor duis mattis','2025-11-12',NULL,'2025-02-07',30,'2025-02-07',14)
+,('a','2025-03-25',NULL,'2024-11-03',17,'2024-12-01',20)
+,('interdum mauris','2026-09-25','Nulla tellus. In sagittis dui vel nisl. Duis ac nibh.','2025-11-05',34,'2025-11-05',17)
+,('volutpat','2026-10-20','Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum.','2026-04-15',21,'2026-04-30',31)
+,('ante ipsum primis','2026-07-24','Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend.','2025-08-03',11,'2025-08-03',22)
+,('diam','2025-06-30','Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci.','2025-01-23',18,'2025-01-23',28)
+,('amet erat nulla','2025-12-16',NULL,'2025-09-03',13,'2025-09-13',25)
+,('mi pede','2026-09-26','Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.','2026-02-22',7,'2026-02-22',17)
+,('condimentum neque','2026-06-22',NULL,'2025-07-25',24,'2025-07-25',4)
+,('mattis egestas','2025-11-07','Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est.','2025-08-23',16,'2025-08-23',2)
+,('cursus id','2025-09-17',NULL,'2024-11-11',21,'2024-11-25',7)
+,('id','2025-08-21',NULL,'2025-02-28',18,'2025-02-28',17)
+,('risus semper','2025-12-06',NULL,'2025-07-17',22,'2025-07-17',4)
+,('sem mauris','2026-04-15',NULL,'2025-12-27',31,'2025-12-27',24);
 
 
 INSERT INTO Milestones(projectID,milestoneID,name,description,displayStyle) VALUES

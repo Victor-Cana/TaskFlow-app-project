@@ -10,7 +10,7 @@ from flask import (
 import json
 from backend.db_connection import db
 # from backend.simple.playlist import sample_playlist_data
-from backend.ml_models import model01
+# from backend.ml_models import model01
 
 kyle_wilson = Blueprint("Software Engineer", __name__)
 

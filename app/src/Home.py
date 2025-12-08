@@ -65,7 +65,7 @@ if st.button('Act as John Kraft, a CFO of a TaskFlow client',
     st.session_state['authenticated'] = True
     st.session_state['role'] = 'client_cfo'
     st.session_state['first_name'] = 'John'
-    st.switch_page('pages/10_Client_CEO_Home.py')
+    st.switch_page('pages/10_Client_CFO_Home.py')
 
 if st.button('Act as Evan Park, a Student Group Project Manager', 
             type = 'primary', 
