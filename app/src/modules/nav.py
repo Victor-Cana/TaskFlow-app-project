@@ -54,22 +54,22 @@ def GetWorkedTimeNav():
 
 def UserProjectsNav():
     st.sidebar.page_link(
-        "pages/32_User_Projects.py", label="User Projects", icon="📁"
+        "pages/32_Get_Projects.py", label="User Projects", icon="📁"
     )
 
 def ProjectDeadlinesNav():
     st.sidebar.page_link(
-        "pages/33_Project_Deadlines.py", label="Project Deadlines", icon="📅"
+        "pages/33_Get_Deadlines.py", label="Project Deadlines", icon="📅"
     )
 
 def RemoveResourceAccessNav():
     st.sidebar.page_link(
-        "pages/34_Remove_Resource_Access.py", label="Remove Resource Access", icon="🚫"
+        "pages/34_Delete_Resource_Access.py", label="Remove Resource Access", icon="🚫"
     )
 
 def ProjectResourcesNav():
     st.sidebar.page_link(
-        "pages/35_Project_Resources.py", label="Project Resources", icon="📦"
+        "pages/35_Get_Project_Resources.py", label="Project Resources", icon="📦"
     )
 
 ## ------------------------ Examples for Role of usaid_worker ------------------------
