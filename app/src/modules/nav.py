@@ -43,34 +43,36 @@ def CreateUserNav():
 
 
 
-## ------------------------ Examples for Role of usaid_worker ------------------------
+## ------------------------ Links for role of Client CFO ------------------------
 
-def usaidWorkerHomeNav():
+def ClientCFOHomeNav():
     st.sidebar.page_link(
-      "pages/10_USAID_Worker_Home.py", label="USAID Worker Home", icon="🏠"
+      "pages/10_Client_CFO_Home.py", label="Client CFO Home", icon="🏠"
     )
 
-def NgoDirectoryNav():
-    st.sidebar.page_link("pages/14_NGO_Directory.py", label="NGO Directory", icon="📁")
+def FutureReportsNav():
+    st.sidebar.page_link("pages/11_Get_Future_Reports.py", label="Future Reports", icon="📁")
 
-def AddNgoNav():
-    st.sidebar.page_link("pages/15_Add_NGO.py", label="Add New NGO", icon="➕")
+def CreateNewProjectNav():
+    st.sidebar.page_link('pages/12_Create_Project.py', label="Add New Project", icon="➕")
 
-def ApiTestNav():
-    st.sidebar.page_link("pages/12_API_Test.py", label="Test the API", icon="🛜")
+def ResourceWorkTimeNav():
+    st.sidebar.page_link("pages/13_Resource_Time.py", label="Check Resource Work Time", icon="⏱️")
 
-def PredictionNav():
+def CreateNewMilestoneNav():
     st.sidebar.page_link(
-        "pages/11_Prediction.py", label="Regression Prediction", icon="📈"
+        "pages/14_Create_Milestone.py", label="Add New Milestone", icon="➕"
     )
 
-def ClassificationNav():
+def ViewUserProjectsNav():
     st.sidebar.page_link(
-        "pages/13_Classification.py", label="Classification Demo", icon="🌺"
+        'pages/15_Assigned_Resources.py', label="Check User Projects", icon="📦"
     )
 
-
-
+def PullReportTypeNav():
+     st.sidebar.page_link(
+        'pages/16_Get_Type_Reports.py', label="Get Reports", icon="📁"
+    )   
 
 
 #### ------------------------ System Admin Role ------------------------
@@ -111,13 +113,14 @@ def SideBarLinks(show_home=False):
             CreateUserNav()
 
         # If the user role is usaid worker, show the Api Testing page
-        if st.session_state["role"] == "usaid_worker":
-            usaidWorkerHomeNav()
-            NgoDirectoryNav()
-            AddNgoNav()
-            PredictionNav()
-            ApiTestNav()
-            ClassificationNav()
+        if st.session_state["role"] == "client_cfo":
+            ClientCFOHomeNav()
+            FutureReportsNav()
+            CreateNewProjectNav()
+            ResourceWorkTimeNav()
+            CreateNewMilestoneNav()
+            ViewUserProjectsNav()
+            PullReportTypeNav()
             
 
         # If the user is an administrator, give them access to the administrator pages

@@ -33,14 +33,14 @@ if st.button('See Work Time for a Resource',
 if st.button('Create a New Milestone', 
              type='primary',
              use_container_width=True):
-  st.switch_page('pages/14_Create_Milestone')
+  st.switch_page('pages/14_Create_Milestone.py')
 
 if st.button('View Projects a User is Assigned To', 
              type='primary',
              use_container_width=True):
-  st.switch_page('pages/15_Assigned_Resources')
+  st.switch_page('pages/15_Assigned_Resources.py')
 
 if st.button('Pull Reports of a Specific Type', 
              type='primary',
              use_container_width=True):
-  st.switch_page('pages/16_Get_Type_Reports')
+  st.switch_page('pages/16_Get_Type_Reports.py')

@@ -21,7 +21,7 @@ if "form_key_counter" not in st.session_state:
 # Define the success dialog function
 @st.dialog("Success")
 def show_success_dialog(project_name):
-    st.markdown(f"### {project_name} has been successfully created!")
+    st.markdown(f"### {project_name} has been successfully added to the system!")
     
     # Create two buttons side by side
     col1, col2 = st.columns(2)
@@ -75,7 +75,7 @@ with st.form(f"create_project_form_{st.session_state.form_key_counter}"):
                 "managerID": manager_id,
                 "creatorID": creator_id,
                 "projectName": project_name if project_name else None,
-                "dateDUE": date_due.isoformat() if date_due else None,
+                "dateDue": date_due.isoformat() if date_due else None,
                 "description": description if description else None,
                 "dateManaged": date_managed.isoformat() if date_managed else None,
                 "dateCreated": date_created.isoformat() if date_created else None,
@@ -85,27 +85,21 @@ with st.form(f"create_project_form_{st.session_state.form_key_counter}"):
                 # Send POST request to API
                 response = requests.post(API_URL, json=project_data)
 
-                # Debug: Show what we got back
-                st.write(f"Status Code: {response.status_code}")
-                st.write(f"Response Text: {response.text}")
-
                 if response.status_code == 201:
                     # Store project name and show modal
                     st.session_state.show_success_modal = True
-                    st.session_state.success_project_name = project_name if project_name else f"Project {project_id}"
+                    st.session_state.success_project_name = project_name if project_name else "New Project"
                     st.rerun()
                 else:
-                    try:
-                        error_msg = response.json().get('error', 'Unknown error')
-                    except:
-                        error_msg = response.text
-                    st.error(f"Failed to create Project: {error_msg}")
+                    st.error(
+                        f"Failed to add Project: {response.json().get('error', 'Unknown error')}"
+                    )
 
             except requests.exceptions.RequestException as e:
                 st.error(f"Error connecting to the API: {str(e)}")
                 st.info("Please ensure the API server is running")
 
-# Show success modal if project was created successfully
+# Show success modal if project was added successfully
 if st.session_state.show_success_modal:
     show_success_dialog(st.session_state.success_project_name)
 

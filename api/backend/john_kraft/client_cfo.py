@@ -140,28 +140,31 @@ def create_new_milestone():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# see how many projects a user has been assigned to
+# see the projects a user has been assigned to
 @john_kraft.route("/assignedto/<int:userID>", methods=["GET"])
-def get_project_count():
+def get_user_projects(userID):
     try:
         cursor = db.get_db().cursor()
 
         query = """
-        SELECT userID, COUNT(DISTINCT projectID) AS total_project_count
-        FROM AssignedTo
-        GROUP BY userID
+        SELECT p.projectID, p.projectName, p.dateDue, p.description, 
+               a.dateAssigned, a.accessLevel
+        FROM AssignedTo a
+        JOIN Projects p ON a.projectID = p.projectID
+        WHERE a.userID = %s
+        ORDER BY p.dateDue
         """
         
-        cursor.execute(query)
-        project_counts = cursor.fetchall()
+        cursor.execute(query, (userID,))
+        projects = cursor.fetchall()
 
-        if not project_counts:
-            return jsonify({"error": "project count not found"}), 404
+        if not projects:
+            return jsonify({"error": "No projects found for this user"}), 404
 
         cursor.close()
 
-        return jsonify(project_counts), 200
-    except Error as e:
+        return jsonify(projects), 200
+    except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 # pull reports with a specific type
