@@ -41,7 +41,36 @@ def CreateUserNav():
         "pages/04_Create_User.py", label="Create User", icon="➕"
     )
 
+#### ------------------------ Links for Role of Team Member ------------------------
+def TeamMemberHomeNav():
+    st.sidebar.page_link(
+        "pages/30_Team_Member_Home.py", label="Team Member Home", icon="🏠"
+    )
 
+def GetWorkedTimeNav():
+    st.sidebar.page_link(
+        "pages/31_Get_Worked_Time.py", label="Get Worked Time", icon="⏱️"
+    )
+
+def UserProjectsNav():
+    st.sidebar.page_link(
+        "pages/32_User_Projects.py", label="User Projects", icon="📁"
+    )
+
+def ProjectDeadlinesNav():
+    st.sidebar.page_link(
+        "pages/33_Project_Deadlines.py", label="Project Deadlines", icon="📅"
+    )
+
+def RemoveResourceAccessNav():
+    st.sidebar.page_link(
+        "pages/34_Remove_Resource_Access.py", label="Remove Resource Access", icon="🚫"
+    )
+
+def ProjectResourcesNav():
+    st.sidebar.page_link(
+        "pages/35_Project_Resources.py", label="Project Resources", icon="📦"
+    )
 
 ## ------------------------ Examples for Role of usaid_worker ------------------------
 
